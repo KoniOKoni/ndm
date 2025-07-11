@@ -60,6 +60,8 @@ def log_prob(theta):
     ve, vmu, vtau = 10**theta[1:]
     if (np.any(theta[1:] < 12)):
         return -np.inf
+    if g0 > 0.6:
+        return -np.inf
 
     Y = (vH/sqrt(2))*(Mnu(betak, g0, ve, vmu, vtau) + Inu(betak, g0, ve, vmu, vtau)) #Neutrino Yukawa after EWSB
 
@@ -70,6 +72,8 @@ def log_prob(theta):
     dmsq31 = masses[2]**2 - masses[0]**2
 
     s13sq = U[0,2]**2
+    if s13sq <= 0 or s13sq >= 1:
+        return -np.inf
     s12sq = (U[0,1]/sqrt(1-s13sq))**2
     s23sq = (U[1,2]/sqrt(1-s13sq))**2
 
@@ -84,11 +88,11 @@ def log_prob(theta):
 ndim = 4
 nwalkers = 50
 p0 = np.zeros((nwalkers, ndim))
-p0[:,0] = np.random.uniform(0.1, 0.7, size=nwalkers)
+p0[:,0] = np.random.uniform(0.1, 0.3, size=nwalkers)
 p0[:, 1:] = np.random.uniform(13, 23, size=(nwalkers, ndim-1))
 
 sampler = emcee.EnsembleSampler(nwalkers, ndim, log_prob)
-sampler.run_mcmc(p0, 1000)
+sampler.run_mcmc(p0, 10000)
 
 samples = sampler.get_chain(flat=True)
 print(samples)
