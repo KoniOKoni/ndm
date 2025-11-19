@@ -2,14 +2,18 @@
 import numpy as np
 
 def run_monte_carlo(n_samples, sample_params, model, constraints):
-    samples, params = sample_params(n_samples)
-    physical_quantities = model(samples, params)
-    mask = constraints(physical_quantities)
+    params, idx = sample_params(n_samples)
+    results = model(params, idx)
+    mask = constraints(results)
 
-    accepted_params = samples[mask]
+    accepted_params = params[mask]
+    accepted_results = {k: v[mask] for k, v in results.items()}
 
     return {
-        'params' : params,
-        'results' : physical_quantities,
-        'masked_results' : accepted_params
+        "params": params,
+        "idx": idx,
+        "results": results,
+        "mask": mask,
+        "accepted_params": accepted_params,
+        "accepted_results": accepted_results
         }

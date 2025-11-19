@@ -26,7 +26,7 @@ def model_NDM(params, idx):
     gamma_Npsi = np.zeros((params.shape[0], 3, 3), dtype=complex)
 
     for i in range(3):
-        for j in range(3):
+        for j in range(i+1):
             key_re = f"Logg{i+1}{j+1}Re"
             key_im = f"Logg{i+1}{j+1}Im"
             gamma[:, i, j] = 10**params[:, idx[key_re]] + (1j) * 10**params[:, idx[key_im]]
@@ -46,17 +46,15 @@ def model_NDM(params, idx):
     for i in range(3):
         for j in range(3):
             for k in range(3):
-                G[:, i, j] += gamma[:, i, k] * gamma[:, k, j].conjugate() * ys[i] * vs[i] * vs[j] / vs[i]**2
+                G[:, i, j] += np.exp(-8 * np.pi**2 * g2inv(Lambda, g0, vs[i])) * gamma[:, i, k] * gamma[:, j, k].conjugate() * ys[i] * vs[i] * vs[j] / vs[i]**2
 
     Y = (M_inst + G)*vH/np.sqrt(2)
 
-    U, mass, PMNS_dagger = np.linalg.svd(Y)
+    U, nu_mass, PMNS_dagger = np.linalg.svd(Y)
 
-    masssum = mass[:, 0] + mass[:, 1] + mass[:, 2]
+    U_Npsi, m_psi, _ = np.linalg.svd(gamma_Npsi)
 
-    m_psi, U_Npsi = np.linalg.eig(gamma_Npsi)
-
-    return {"masssum" : masssum, "m_psi" : m_psi, "U_Npsi" : U_Npsi}
+    return {"nu_mass" : nu_mass, "m_psi" : m_psi, "U_Npsi" : U_Npsi, "ynue" : ye*inst_e, "ynumu" : ymu*inst_mu}
 
     
 
