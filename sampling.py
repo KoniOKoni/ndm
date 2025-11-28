@@ -6,23 +6,23 @@ seed = int(time.time())
 _rng = np.random.default_rng(seed)
 
 def sample_params(n_samples : int):
-    LogLambda = _rng.uniform(17.1, 22.0, size = n_samples) #Unification scale.
-    g0 = _rng.uniform(0.1, 0.8, size = n_samples) #Initial coupling constant unified at Lambda
+    LogLambda = _rng.uniform(17.1, 25.0, size = n_samples) #Unification scale.
+    g0 = _rng.uniform(0.1, 0.9, size = n_samples) #Initial coupling constant unified at Lambda
     Logve = _rng.uniform(12, 17, size = n_samples)
     Logvmu = _rng.uniform(12, 17, size = n_samples)
     Logvtau = _rng.uniform(12, 17, size = n_samples)
-    Logg11Re = _rng.uniform(-6, 3, size = n_samples)
-    Logg11Im = _rng.uniform(-6, 3, size = n_samples)
-    Logg21Re = _rng.uniform(-6, 3, size = n_samples)
-    Logg21Im = _rng.uniform(-6, 3, size = n_samples)
-    Logg22Re = _rng.uniform(-6, 3, size = n_samples)
-    Logg22Im = _rng.uniform(-6, 3, size = n_samples)
-    Logg31Re = _rng.uniform(-6, 3, size = n_samples)
-    Logg31Im = _rng.uniform(-6, 3, size = n_samples)
-    Logg32Re = _rng.uniform(-6, 3, size = n_samples)
-    Logg32Im = _rng.uniform(-6, 3, size = n_samples)
-    Logg33Re = _rng.uniform(-6, 3, size = n_samples)
-    Logg33Im = _rng.uniform(-6, 3, size = n_samples)
+    Logg11Re = _rng.uniform(-6, 7, size = n_samples)
+    Logg11Im = _rng.uniform(-1e9, -1e9, size = n_samples)
+    Logg21Re = _rng.uniform(-6, 7, size = n_samples)
+    Logg21Im = _rng.uniform(-6, 7, size = n_samples)
+    Logg22Re = _rng.uniform(-6, 7, size = n_samples)
+    Logg22Im = _rng.uniform(-1e9, -1e9, size = n_samples)
+    Logg31Re = _rng.uniform(-6, 7, size = n_samples)
+    Logg31Im = _rng.uniform(-6, 7, size = n_samples)
+    Logg32Re = _rng.uniform(-6, 7, size = n_samples)
+    Logg32Im = _rng.uniform(-6, 7, size = n_samples)
+    Logg33Re = _rng.uniform(-6, 7, size = n_samples)
+    Logg33Im = _rng.uniform(-1e9, -1e9, size = n_samples)
 
     sample_grid = np.stack([LogLambda, g0, Logve, Logvmu, Logvtau,
                             Logg11Re, Logg11Im,

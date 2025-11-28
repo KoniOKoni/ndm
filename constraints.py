@@ -19,8 +19,8 @@ def CLFV_constraints(results):
     m2 = nu_mass[:,1]
     m3 = nu_mass[:,0]
 
-    cond_m21sq = ((m2**2 - m1**2) < 7.69e-5) & ((m2**2 - m1**2) > 7.31e-5)
-    cond_m32sq = ((m3**2 - m2**2) < 2.477e-3) & ((m3**2 - m2**2) > 2.425e-3)
+    cond_m21sq = ((m2**2 - m1**2) < 8.05e-5) & ((m2**2 - m1**2) > 6.92e-5)
+    cond_m32sq = ((m3**2 - m2**2) < 2.606e-3) & ((m3**2 - m2**2) > 2.463e-3)
 
     cond_nu_positive = np.all(nu_mass > 0, axis=1)
 
@@ -42,7 +42,7 @@ def CLFV_constraints(results):
 
     cond_CLFV = (Br_eg < 3.1e-13) & (Br_eee < 1e-12) & (Br_egg < 7.2e-11)
 
-    mask = cond_masssum & cond_nu_positive & cond_CLFV & cond_m21sq & cond_m32sq
+    mask = cond_masssum & cond_nu_positive & cond_CLFV & (cond_m21sq & cond_m32sq)
 
     return mask
 

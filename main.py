@@ -10,7 +10,7 @@ import getdist
 
 
 def main():
-    n_samples = 1000
+    n_samples = 100000
 
     out = run_monte_carlo(
         n_samples = n_samples,
@@ -38,7 +38,7 @@ def main():
 
     samples = getdist.MCSamples(samples=accepted_params, names = names, labels = labels)
 
-    chosen = ['LogLambda', 'Logve', 'Logvmu', 'Logvtau']
+    chosen = ['LogLambda' ,'Logve', 'Logvmu', 'Logvtau']
     g = getdist.plots.getSubplotPlotter()
     g.triangle_plot(samples,params=chosen ,filled=True)
     plt.show()
