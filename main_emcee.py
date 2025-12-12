@@ -10,7 +10,7 @@ def main():
     # MCMC 실행
     flat_samples, flat_log_prob = run_emcee(
         nwalkers=32,
-        nsteps=20000,
+        nsteps=100000,
         burnin=5000,
         random_seed=42
     )
@@ -29,10 +29,11 @@ def main():
     labels = [label_map.get(n, n) for n in names]
 
     # getdist MCSamples
-    samples = getdist.MCSamples(samples=flat_samples, names=names, labels=labels)
+    samples = getdist.MCSamples(samples=flat_samples, names=names)
+    samples.saveAsText('ndm.txt')
 
     # 보고 싶은 파라미터만 선택 (이름이 VARYING_NAMES에 들어 있는 것들)
-    chosen = [p for p in ['LogLambda', 'g0', 'Logve', 'Logvmu', 'Logvtau'] if p in names]
+    chosen = [p for p in names]
 
     g = getdist.plots.getSubplotPlotter()
     g.triangle_plot(samples, params=chosen, filled=True)

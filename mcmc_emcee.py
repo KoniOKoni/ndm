@@ -17,9 +17,9 @@ IDX = {name: i for i, name in enumerate(ALL_NAMES)}
 
 # 고정시켜둔 imaginary parts
 FIXED_IM_PARAMS = {
-    "Logg11Im": -1e9,
-    "Logg22Im": -1e9,
-    "Logg33Im": -1e9,
+    "Logg11Im": 0,
+    "Logg22Im": 0,
+    "Logg33Im": 0,
 }
 
 # 실제로 MCMC에서 도는 파라미터 이름
