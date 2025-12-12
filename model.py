@@ -54,7 +54,7 @@ def model_NDM(params, idx):
 
     U_Npsi, m_psi, Vh_Npsi = np.linalg.svd(gamma_Npsi)
 
-    return {"nu_mass" : nu_mass, "m_psi" : m_psi, "U_Npsi" : U_Npsi, "ynue" : ye*inst_e, "ynumu" : ymu*inst_mu}
+    return {"nu_mass" : nu_mass, "m_psi" : m_psi, "U_Npsi" : U_Npsi, "ynue" : ye*inst_e, "ynumu" : ymu*inst_mu, "PMNS_dagger" : PMNS_dagger}
 
     
 

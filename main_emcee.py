@@ -6,12 +6,14 @@ import getdist.plots
 
 from mcmc_emcee import run_emcee, VARYING_NAMES
 
+N = 100000
+
 def main():
     # MCMC 실행
     flat_samples, flat_log_prob = run_emcee(
         nwalkers=32,
-        nsteps=100000,
-        burnin=5000,
+        nsteps=50000,
+        burnin=10000,
         random_seed=42
     )
 
@@ -33,7 +35,8 @@ def main():
     samples.saveAsText('ndm.txt')
 
     # 보고 싶은 파라미터만 선택 (이름이 VARYING_NAMES에 들어 있는 것들)
-    chosen = [p for p in names]
+    #chosen = [p for p in names]
+    chosen = ['g0', 'Logve', 'Logvmu', 'Logvtau']
 
     g = getdist.plots.getSubplotPlotter()
     g.triangle_plot(samples, params=chosen, filled=True)

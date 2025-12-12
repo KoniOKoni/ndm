@@ -20,6 +20,7 @@ FIXED_IM_PARAMS = {
     "Logg11Im": 0,
     "Logg22Im": 0,
     "Logg33Im": 0,
+    "LogLambda": 25
 }
 
 # 실제로 MCMC에서 도는 파라미터 이름
@@ -27,11 +28,11 @@ VARYING_NAMES = [name for name in ALL_NAMES if name not in FIXED_IM_PARAMS]
 
 # 기존 sampling.py에서 쓰던 bounds 재현
 BOUNDS = {
-    "LogLambda": (17.1, 25.0),
-    "g0": (0.1, 0.9),
-    "Logve": (12.0, 17.0),
-    "Logvmu": (12.0, 17.0),
-    "Logvtau": (12.0, 17.0),
+    #"LogLambda": (17.1, 25.0),
+    "g0": (0.6, 0.7),
+    "Logve": (12.0, 15.0),
+    "Logvmu": (12.0, 15.0),
+    "Logvtau": (12.0, 15.0),
 
     "Logg11Re": (-6.0, 7.0),
     # "Logg11Im" 고정
@@ -96,11 +97,10 @@ def log_likelihood(theta):
     results = model_NDM(params, IDX)
 
     # CLFV_constraints도 vectorized라 mask shape가 (N,) 형태
-    mask = CLFV_constraints(results)  # shape (1,)
-    if mask[0]:
-        return 0.0   # allowed region: constant likelihood
-    else:
-        return -np.inf
+    const = CLFV_constraints(results)  # shape (1,)
+    if not const[0][0]:
+        return -np.inf   # allowed region: constant likelihood
+    return const[1]
 
 
 def log_probability(theta):
