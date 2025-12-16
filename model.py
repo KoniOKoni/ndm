@@ -50,9 +50,9 @@ def model_NDM(params, idx):
 
     Y = (M_inst + G)*vH/np.sqrt(2)
 
-    U, nu_mass, PMNS_dagger = np.linalg.svd(Y)
+    U, nu_mass, PMNS_dagger = map(np.real_if_close, (np.linalg.svd(Y)))
 
-    U_Npsi, m_psi, Vh_Npsi = np.linalg.svd(gamma_Npsi)
+    U_Npsi, m_psi, Vh_Npsi = map(np.real_if_close, (np.linalg.svd(gamma_Npsi)))
 
     return {"nu_mass" : nu_mass, "m_psi" : m_psi, "U_Npsi" : U_Npsi, "ynue" : ye*inst_e, "ynumu" : ymu*inst_mu, "PMNS_dagger" : PMNS_dagger}
 

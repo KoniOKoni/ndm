@@ -38,7 +38,8 @@ def main():
 
     samples = getdist.MCSamples(samples=accepted_params, names = names, labels = labels)
 
-    chosen = ['LogLambda' ,'Logve', 'Logvmu', 'Logvtau']
+    #chosen = ['g0', 'Logve', 'Logvmu', 'Logvtau']
+    chosen = names
     g = getdist.plots.getSubplotPlotter()
     g.triangle_plot(samples,params=chosen ,filled=True)
     plt.show()
